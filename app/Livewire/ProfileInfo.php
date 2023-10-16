@@ -7,12 +7,11 @@ use Livewire\Component;
 
 class ProfileInfo extends Component
 {
-    public $employees;
-    public function mount(){
-        $this->employees=EmployeeDetails::all();
-    }
+    public $employeeDetails;
     public function render()
     {
-        return view('livewire.profile-info');
+         $this->employeeDetails = EmployeeDetails::where('emp_id',auth()->guard('emp')->user()->emp_id)->get();
+        return view('livewire.profile-info', ['employees' => $this->employeeDetails]);
     }
+    
 }
